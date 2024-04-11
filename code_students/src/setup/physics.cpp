@@ -80,7 +80,7 @@ void physics::get_physical_fluxes(const fluid_cell &fluid, fluxes_cell &fluxes, 
 	// fluxes.flux_data[fluid.get_index_density()] = fluid_cell.fluid_data[]
 	if (local_direction == parallelisation::direction::x) {
 		fluxes.flux_data[fluid.get_index_density()] = density * v_x;
-		fluxes.flux_data[fluid.get_index_v_x()] = density * v_x**2 + pressure;    
+		fluxes.flux_data[fluid.get_index_v_x()] = density * v_x * v_x + pressure;    
 		fluxes.flux_data[fluid.get_index_v_y()] = density * v_x * v_y;    
 		fluxes.flux_data[fluid.get_index_v_z()] = density * v_x * v_z;    
 		fluxes.flux_data[fluid.get_index_energy()] = (e_total + pressure) * v_x; 
@@ -88,7 +88,7 @@ void physics::get_physical_fluxes(const fluid_cell &fluid, fluxes_cell &fluxes, 
 	} else if (local_direction == parallelisation::direction::y) {
 		fluxes.flux_data[fluid.get_index_density()] = density * v_y;
 		fluxes.flux_data[fluid.get_index_v_x()] = density * v_x * v_y;    
-		fluxes.flux_data[fluid.get_index_v_y()] = density * v_y**2 + pressure;    
+		fluxes.flux_data[fluid.get_index_v_y()] = density * v_y * v_y + pressure;    
 		fluxes.flux_data[fluid.get_index_v_z()] = density * v_y * v_z;    
 		fluxes.flux_data[fluid.get_index_energy()] = (e_total + pressure) * v_y; 
 		fluxes.flux_data[fluid.get_index_tracer()] = tracer * v_y;
@@ -96,15 +96,14 @@ void physics::get_physical_fluxes(const fluid_cell &fluid, fluxes_cell &fluxes, 
 		fluxes.flux_data[fluid.get_index_density()] = density * v_z;
 		fluxes.flux_data[fluid.get_index_v_x()] = density * v_x * v_z;    
 		fluxes.flux_data[fluid.get_index_v_y()] = density * v_y * v_z;    
-		fluxes.flux_data[fluid.get_index_v_z()] = density * v_z**2 + pressure;    
+		fluxes.flux_data[fluid.get_index_v_z()] = density * v_z * v_z + pressure;    
 		fluxes.flux_data[fluid.get_index_energy()] = (e_total + pressure) * v_z; 
 		fluxes.flux_data[fluid.get_index_tracer()] = tracer * v_z;
 	}
 }
 
 double physics::get_sound_speed(double density, double pressure) {
-	// TBD by students
-	return 42.0;
+	return sqrt(adiabatic_index * pressure / density);
 }
 
 double physics::get_lambda_abs_max(const fluid_cell &fluid) {
