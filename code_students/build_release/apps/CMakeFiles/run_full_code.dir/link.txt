@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG CMakeFiles/run_full_code.dir/main_full_code.cpp.o -o run_full_code  ../src/util/libutilities.a ../src/setup/libsim_setup.a ../src/solver/libsolver.a ../src/util/libutilities.a ../src/setup/libsim_setup.a ../src/IO/libIO.a /usr/lib64/libhdf5.so 

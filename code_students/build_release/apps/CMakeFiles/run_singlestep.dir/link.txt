@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG CMakeFiles/run_singlestep.dir/main_test_singlesteps.cpp.o -o run_singlestep  ../src/util/libutilities.a ../src/setup/libsim_setup.a ../src/solver/libsolver.a ../src/IO/libIO.a ../src/util/libutilities.a ../src/setup/libsim_setup.a /usr/lib64/libhdf5.so 

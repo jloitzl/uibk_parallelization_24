@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsim_setup.a CMakeFiles/sim_setup.dir/grid1D.cpp.o CMakeFiles/sim_setup.dir/grid.cpp.o CMakeFiles/sim_setup.dir/fluid.cpp.o CMakeFiles/sim_setup.dir/physics.cpp.o
+/usr/bin/ranlib libsim_setup.a

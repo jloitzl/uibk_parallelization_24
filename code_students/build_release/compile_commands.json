@@ -1,0 +1,77 @@
+[
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/util",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/utilities.dir/matrix.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/util/matrix.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util/matrix.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/setup",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/sim_setup.dir/grid1D.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/grid1D.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/grid1D.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/setup",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/sim_setup.dir/grid.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/grid.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/grid.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/setup",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/sim_setup.dir/fluid.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/fluid.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/fluid.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/setup",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/sim_setup.dir/physics.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/physics.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup/physics.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/singlestep.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/singlestep.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/singlestep.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/Riemann_solvers.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/Riemann_solvers.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/Riemann_solvers.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/Riemann_solver_HLL.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/Riemann_solver_HLL.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/Riemann_solver_HLL.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/finite_volume_solver.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/finite_volume_solver.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/finite_volume_solver.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/reconstruction.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/reconstruction.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/reconstruction.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/limiter.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/limiter.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/limiter.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/solver",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/solver.dir/time_integrator.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/time_integrator.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver/time_integrator.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/src/IO",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/IO.dir/data_storage.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO/data_storage.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO/data_storage.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/apps",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/run_singlestep.dir/main_test_singlesteps.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/apps/main_test_singlesteps.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/apps/main_test_singlesteps.cpp"
+},
+{
+  "directory": "/home/cb76/cb761160/uibk_parallelization_24/code_students/build_release/apps",
+  "command": "/usr/bin/c++  -I/home/cb76/cb761160/uibk_parallelization_24/code_students/include -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/util -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/setup -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/solver -I/home/cb76/cb761160/uibk_parallelization_24/code_students/src/IO -Wall -Wextra -pedantic -O3 -mtune=native -DNDEBUG -std=gnu++17 -o CMakeFiles/run_full_code.dir/main_full_code.cpp.o -c /home/cb76/cb761160/uibk_parallelization_24/code_students/apps/main_full_code.cpp",
+  "file": "/home/cb76/cb761160/uibk_parallelization_24/code_students/apps/main_full_code.cpp"
+}
+]
