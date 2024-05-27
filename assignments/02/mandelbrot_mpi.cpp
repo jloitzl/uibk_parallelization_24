@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <tuple>
 #include <vector>
+#include <mpi.h>
 
 // Include that allows to print result as an image
 // Also, ignore some warnings that pop up when compiling this as C++ mode
@@ -16,8 +17,8 @@
 #include "stb_image_write.h"
 #pragma GCC diagnostic push
 
-constexpr int default_size_x = 1280;
-constexpr int default_size_y = 720;
+constexpr int default_size_x = 1344/2; // divisible by 96, since that's how many ranks we have on lcc3
+constexpr int default_size_y = 768/2;
 
 // RGB image will hold 3 color channels
 constexpr int num_channels = 3;
@@ -65,7 +66,7 @@ auto HSVToRGB(double H, const double S, double V) {
 	return std::make_tuple(R, G, B);
 }
 
-void calcMandelbrot(Image &image, int size_x, int size_y) {
+void calcMandelbrot(Image &image, int size_x, int size_y, int ranks) {
 
 	auto time_start = std::chrono::high_resolution_clock::now();
 	
@@ -79,8 +80,31 @@ void calcMandelbrot(Image &image, int size_x, int size_y) {
 	// 2) result aggregation
 	//   - aggregate the individual parts of the ranks into a single, complete image on the root rank (rank 0)
 
-	for (int pixel_y = 0; pixel_y < size_y; pixel_y++) {
+
+	// split array, then scatter and that's it? do printf to test distirbution
+	// finally use gather to collect them again, but how do you reconstruct correctly?
+
+	if (size_x % ranks != 0) {
+		MPI_Finalize();
+		printf('Not divisible by number of ranks'); //, choose from 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 768');
+		return EXIT_FAILURE;
+	}
+
+
+	int y_pixels[size_y];
+
+	if (ranks==0) {
+		for (int i=0; i < size_y; i++) {
+			y_pixels[i] = i;
+		}
+	}
+
+	int local_y;
+	MPI_Scatter(y_pixels, 8, MPI_INT, &local_y, 8, MPI_INT, 0, MPI_COMM_WORLD);
+
+	for (int pixel_y : local_y) {
 		// scale y pixel into mandelbrot coordinate system
+		printf("Hello from rank %d of %d, calculating y-pixel %d \n",rank,size,pixel_y);
 		const float cy = (pixel_y / (float)size_y) * (top - bottom) + bottom;
 		for (int pixel_x = 0; pixel_x < size_x; pixel_x++) {
 			// scale x pixel into mandelbrot coordinate system
@@ -117,7 +141,11 @@ void calcMandelbrot(Image &image, int size_x, int size_y) {
 }
 
 int main(int argc, char **argv) {
-
+	MPI_Init(&argc, &argv);
+	int size;
+	MPI_Comm_size(MPI_COMM_WORLD, &size);
+	int rank;
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	int size_x = default_size_x;
 	int size_y = default_size_y;
 
@@ -135,6 +163,6 @@ int main(int argc, char **argv) {
 
 	constexpr int stride_bytes = 0;
 	stbi_write_png("mandelbrot_seq.png", size_x, size_y, num_channels, image.data(), stride_bytes);
-
+	MPI_Finalize();
 	return EXIT_SUCCESS;
 }
