@@ -17,8 +17,8 @@
 #include "stb_image_write.h"
 #pragma GCC diagnostic push
 
-constexpr int default_size_x = 1344/2; // divisible by 96, since that's how many ranks we have on lcc3
-constexpr int default_size_y = 768/2;
+constexpr int default_size_x = 1344; // divisible by 96, since that's how many ranks we have on lcc3
+constexpr int default_size_y = 768;
 
 // RGB image will hold 3 color channels
 constexpr int num_channels = 3;
@@ -66,7 +66,10 @@ auto HSVToRGB(double H, const double S, double V) {
 	return std::make_tuple(R, G, B);
 }
 
-void calcMandelbrot(Image &image, int size_x, int size_y, int ranks) {
+void calcMandelbrot(Image &image, int size_x, int size_y, int numprocs) {
+
+	int rank;
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	auto time_start = std::chrono::high_resolution_clock::now();
 	
@@ -81,30 +84,20 @@ void calcMandelbrot(Image &image, int size_x, int size_y, int ranks) {
 	//   - aggregate the individual parts of the ranks into a single, complete image on the root rank (rank 0)
 
 
-	// split array, then scatter and that's it? do printf to test distirbution
+	// split array, then scatter and that's it? do printf to test distribution
 	// finally use gather to collect them again, but how do you reconstruct correctly?
 
-	if (size_x % ranks != 0) {
-		MPI_Finalize();
-		printf('Not divisible by number of ranks'); //, choose from 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 768');
-		return EXIT_FAILURE;
-	}
+	//if (size_x % numprocs != 0) {
+	//	MPI_Finalize();
+	//	printf("Not divisible by number of ranks, choose from 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 768");
+	//	return EXIT_FAILURE;
+	//}
 
+	int chunk_size = size_y / numprocs;
 
-	int y_pixels[size_y];
-
-	if (ranks==0) {
-		for (int i=0; i < size_y; i++) {
-			y_pixels[i] = i;
-		}
-	}
-
-	int local_y;
-	MPI_Scatter(y_pixels, 8, MPI_INT, &local_y, 8, MPI_INT, 0, MPI_COMM_WORLD);
-
-	for (int pixel_y : local_y) {
+	for (int pixel_y = rank * chunk_size; pixel_y < (rank + 1) * chunk_size; pixel_y++) {
 		// scale y pixel into mandelbrot coordinate system
-		printf("Hello from rank %d of %d, calculating y-pixel %d \n",rank,size,pixel_y);
+		printf("Hello from rank %d of %d, calculating y-pixel %d \n",rank,numprocs,pixel_y);
 		const float cy = (pixel_y / (float)size_y) * (top - bottom) + bottom;
 		for (int pixel_x = 0; pixel_x < size_x; pixel_x++) {
 			// scale x pixel into mandelbrot coordinate system
@@ -136,16 +129,11 @@ void calcMandelbrot(Image &image, int size_x, int size_y, int ranks) {
 	
 	auto time_end = std::chrono::high_resolution_clock::now();
 	auto time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_start).count();
-	
+
 	std::cout << "Mandelbrot set calculation for " << size_x << "x" << size_y << " took: " << time_elapsed << " ms." << std::endl;
 }
 
 int main(int argc, char **argv) {
-	MPI_Init(&argc, &argv);
-	int size;
-	MPI_Comm_size(MPI_COMM_WORLD, &size);
-	int rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	int size_x = default_size_x;
 	int size_y = default_size_y;
 
@@ -159,10 +147,39 @@ int main(int argc, char **argv) {
 
 	Image image(num_channels * size_x * size_y);
 
-	calcMandelbrot(image, size_x, size_y);
+	MPI_Init(&argc, &argv);
 
-	constexpr int stride_bytes = 0;
-	stbi_write_png("mandelbrot_seq.png", size_x, size_y, num_channels, image.data(), stride_bytes);
+	int size;
+	MPI_Comm_size(MPI_COMM_WORLD, &size);
+	int rank;
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+	calcMandelbrot(image, size_x, size_y, size);
+
+	//uint8_t localval[2] = {1, 1};
+	//uint8_t *arr = (uint8_t *)malloc(16 * sizeof(uint8_t));
+
+	//Image rcv_image(num_channels * size_x * size_y);
+	//if (rank == 0) {
+	//	int *rcv_image;
+	uint8_t *rcv_image = (uint8_t *)malloc(8 * num_channels * size_x*size_y*sizeof(uint8_t));
+	//Image rcv_image(8 * num_channels * size_x * size_y);
+	//}
+	//MPI_Gather(&localval, 2, MPI_UINT8_T, arr, 2, MPI_UINT8_T, 0, MPI_COMM_WORLD);
+	MPI_Gather(&image, size_x * size_y * num_channels, MPI_UINT8_T, rcv_image, size_x * size_y * num_channels, MPI_UINT8_T, 0, MPI_COMM_WORLD);
+	
+	if (rank == 0) {
+		//for (int i = 0; i < 16; i++) {
+		//	std::cout << "gathered ranks" << arr[i] << std::endl;
+		//}
+		constexpr int stride_bytes = 0;
+		stbi_write_png("mandelbrot_seq.png", size_x, size_y, num_channels, rcv_image, stride_bytes);
+	}
+
+	//constexpr int stride_bytes = 0;
+	//const char *name = std::to_char(rank);
+	//stbi_write_png(name, size_x, size_y, num_channels, image.data(), stride_bytes);
+
 	MPI_Finalize();
 	return EXIT_SUCCESS;
 }
