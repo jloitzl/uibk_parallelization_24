@@ -66,7 +66,7 @@ auto HSVToRGB(double H, const double S, double V) {
 	return std::make_tuple(R, G, B);
 }
 
-void calcMandelbrot(Image &image, int size_x, int size_y, int numprocs) {
+void calcMandelbrot(Image &image, int size_x, int size_y, int chunk_size) {
 
 	int rank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -93,11 +93,10 @@ void calcMandelbrot(Image &image, int size_x, int size_y, int numprocs) {
 	//	return EXIT_FAILURE;
 	//}
 
-	int chunk_size = size_y / numprocs;
-
 	for (int pixel_y = rank * chunk_size; pixel_y < (rank + 1) * chunk_size; pixel_y++) {
+		assert (pixel_y < size_y);
 		// scale y pixel into mandelbrot coordinate system
-		printf("Hello from rank %d of %d, calculating y-pixel %d \n",rank,numprocs,pixel_y);
+		printf("Hello from rank %d, calculating y-pixel %d \n",rank,pixel_y);
 		const float cy = (pixel_y / (float)size_y) * (top - bottom) + bottom;
 		for (int pixel_x = 0; pixel_x < size_x; pixel_x++) {
 			// scale x pixel into mandelbrot coordinate system
@@ -153,8 +152,9 @@ int main(int argc, char **argv) {
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	int rank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	int chunk_size = size_y / size;
 
-	calcMandelbrot(image, size_x, size_y, size);
+	calcMandelbrot(image, size_x, size_y, chunk_size);
 
 	//uint8_t localval[2] = {1, 1};
 	//uint8_t *arr = (uint8_t *)malloc(16 * sizeof(uint8_t));
@@ -162,11 +162,11 @@ int main(int argc, char **argv) {
 	//Image rcv_image(num_channels * size_x * size_y);
 	//if (rank == 0) {
 	//	int *rcv_image;
-	uint8_t *rcv_image = (uint8_t *)malloc(8 * num_channels * size_x*size_y*sizeof(uint8_t));
+	uint8_t *rcv_image = (uint8_t *)malloc(size * num_channels * size_x * size_y * sizeof(uint8_t));
 	//Image rcv_image(8 * num_channels * size_x * size_y);
 	//}
 	//MPI_Gather(&localval, 2, MPI_UINT8_T, arr, 2, MPI_UINT8_T, 0, MPI_COMM_WORLD);
-	MPI_Gather(&image, size_x * size_y * num_channels, MPI_UINT8_T, rcv_image, size_x * size_y * num_channels, MPI_UINT8_T, 0, MPI_COMM_WORLD);
+	MPI_Gather(&image[rank * (size_x * chunk_size * num_channels)], size_x * chunk_size * num_channels, MPI_UINT8_T, rcv_image, size_x * chunk_size * num_channels, MPI_UINT8_T, 0, MPI_COMM_WORLD);
 	
 	if (rank == 0) {
 		//for (int i = 0; i < 16; i++) {
