@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
 
 	// Now, I will create a HD fluid
 	fluid hd_fluid(parallelisation::FluidType::adiabatic);
-	hd_fluid.setup(my_grid);
+	hd_fluid.setup(local_grid);
 
 	std::function<void(fluid_cell &, double, double, double)> function_init = init_Sedov;
 
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
 	double t_final = 0.1;
 	double dt_out = 0.005;
 
-	solver.run(my_grid, hd_fluid, t_final, dt_out);
+	solver.run(local_grid, hd_fluid, t_final, dt_out);
 
 	
 
